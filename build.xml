@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     20 juin 2012 14:57:17                                                        
+
+     Java Command Suite    
+     JCS is a library that help you to write command suite application in Java.
+                   
+     jonathan                                                                
+     ====================================================================== -->
+<project name="Java Command Suite" default="default">
+    <description>
+            JCS is a library that help you to write command suite application in Java.
+    </description>
+	
+	<property name="version" value="1.0" />
+
+	<property name="src" location="src" />
+	<property name="bin" location="bin" />
+	<property name="dist" location="dist" />
+	<property name="test" location="test" />
+	<property name="jar" value="jcs-${version}.jar" />
+	<property name="jar-src" value="jcs-src-${version}.jar" />
+	
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="generate" description="JCS is a library that help you to write command suite application in Java.">
+        
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="clean">
+		<delete dir="${bin}" />
+		<delete dir="${dist}" />
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: compile                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="compile" depends="clean">
+    	<mkdir dir="${bin}"/>
+		<javac srcdir="${src}"
+         destdir="${bin}"/>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="generate" depends="compile">
+    	<jar destfile="${dist}/${jar}" basedir="${bin}" />
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: generate-src                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="generate-src" depends="compile">
+    	<jar destfile="${dist}/${jar-src}">
+    		<fileset dir="${bin}" />
+    		<fileset dir="${src}" />
+    	</jar>
+    </target>
+
+	
+</project>
