@@ -93,7 +93,7 @@ public class CommandSuite {
 		return getCommand(name) != null;
 	}
 
-	public void parse(String[] args) throws Exception {
+	public CommandSuite parse(String[] args) throws Exception {
 		Command command = null;
 		
 		boolean commandDefined = false;
@@ -135,10 +135,13 @@ public class CommandSuite {
 					throw new Exception("Global option " + arg + " doesn't exists for command " + command.getName() + ".");
 			}
 		}
-		
-		if(command != null) {
-			command.action(this, arguments);
-		}
+		currentCommand = command;
+		return this;
 	}
 	
+	public void execute() {
+		if(currentCommand != null) {
+			currentCommand.action(this, arguments);
+		}
+	}
 }
