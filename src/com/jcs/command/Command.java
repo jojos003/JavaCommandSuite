@@ -186,9 +186,10 @@ public abstract class Command {
 			output.append(LINE_SEPARATOR);
 			output.append("Options :");
 			output.append(LINE_SEPARATOR);
-			for (CommandLineOption option : getOptions())
+			for (CommandLineOption option : getOptions()) {
 				output.append(option.help());
-			output.append(LINE_SEPARATOR);
+				output.append(LINE_SEPARATOR);
+			}
 		}
 		if(!getLongDescription().trim().endsWith("")) {
 			output.append(LINE_SEPARATOR);
