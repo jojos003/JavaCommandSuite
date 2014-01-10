@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.jcs.command.defaults.CommandCommand;
 import com.jcs.command.defaults.HelpCommand;
+import com.jcs.command.exceptions.UndefinedOptionException;
 import com.jcs.options.ArrayOption;
 import com.jcs.options.CommandLineOption;
 import com.jcs.options.SwitchOption;
@@ -93,7 +94,7 @@ public class CommandSuite {
 		return getCommand(name) != null;
 	}
 
-	public CommandSuite parse(String[] args) throws Exception {
+	public CommandSuite parse(String[] args) throws UndefinedOptionException {
 		Command command = null;
 		
 		boolean commandDefined = false;
@@ -130,9 +131,9 @@ public class CommandSuite {
 				((ArrayOption)currentOption).addValue(args[++i]);
 			else {
 				if(inGlobalOptions) 
-					throw new Exception("Global option " + arg + " doesn't exists.");
+					throw new UndefinedOptionException("Global option " + arg + " doesn't exists.");
 				else
-					throw new Exception("Global option " + arg + " doesn't exists for command " + command.getName() + ".");
+					throw new UndefinedOptionException("Global option " + arg + " doesn't exists for command " + command.getName() + ".");
 			}
 		}
 		currentCommand = command;
